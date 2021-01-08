@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Access Control Allow Origin" content="*">
+    <title>Cert Checker</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        var inputs = new Array();
+        $(document).ready(function () {
+            $("#submit").click(function (e) {
+                e.preventDefault();
+                var numbers = document.getElementById("lifesavingNumbers").value;
+                $("#msgOutput").load("http://localhost:8080", {
+                    ids: numbers
+                });
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <form id="certForm" action="">
+        <input type="text" id="lifesavingNumbers">
+        <input type="submit" id="submit">
+        <p id="msgOutput"></p>
+    </form>
+</body>
+
+</html>
