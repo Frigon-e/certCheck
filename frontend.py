@@ -5,8 +5,8 @@ from urllib import parse
 
 from webscraper import webscraper
 
-hostName = "localhost"
-serverPort = 8080
+hostName = "0.0.0.0"
+serverPort = 8080 
 
 
 class MyServer(BaseHTTPRequestHandler):
@@ -17,10 +17,27 @@ class MyServer(BaseHTTPRequestHandler):
         ids = allData.split()
         tester = webscraper()
         tester.get_Data(ids)
+        colNames = tester.get_Cols()
+        allData = tester.get_Rows()
 
+        
+        print(tester.allStaff)
         self.set_headers(200)
-        self.wfile.write(bytes("<h1>things and stuff</h1>", "utf-8"))
-        self.wfile.write(bytes("<h2> Testing another lvl</h2>", "utf-8"))
+        self.wfile.write(bytes("{}".format(self.get_output(colNames, allData)), "utf-8"))
+    
+    def get_output(self, cols, rows):
+        output = "<table>"
+        output = output + "<tr>"
+        for x in cols:
+            output = output + "<th>" + str(x) + "</th>" 
+        output = output + "</tr>"
+        for x in rows:
+            output = output + "<tr>"
+            for y in x:
+                output = output + "<td>" + str(y) + "</td>"
+            output = output + "</tr>"
+        output = output + "</table>"
+        return output
 
     def getRequestData(self):
         body = self.rfile.read(int(self.headers.get('Content-Length')))

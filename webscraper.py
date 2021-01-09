@@ -2,7 +2,6 @@ import pandas as pd
 import requests
 from bs4 import BeautifulSoup
 
-
 class webscraper:
     allStaff = pd.DataFrame()
 
@@ -27,23 +26,26 @@ class webscraper:
         for id in ids:
             cleanDates = []
             cleanCerts = []
+            dirtyCerts = []
+            name = ""
             payload = {"memberid": id, "current_only": "1"}
             s = requests.Session()
             s.headers = header
             r = s.post(url, data=payload)
-            soup = BeautifulSoup(r.content, "html.parser").find(
-                id='DivIdToPrint')
 
-            name = soup.find(class_='ml-3')
-            name = name.text
-            name = name.replace("  ", " ")
-            namelist.append(name)
+            try:
+                soup = BeautifulSoup(r.content, "html.parser").find(id='DivIdToPrint')
+                name = soup.find(class_='ml-3')
+                name = name.text
+                name = name.replace("  ", " ")
+                namelist.append(name)
+                dirtyCerts = soup.find_all(class_="col-md-6")
+            except:
+                continue
 
-            dirtyCerts = soup.find_all(class_="col-md-6")
             for certs in dirtyCerts:
                 certs = certs.text
                 certs = certs.strip()
-                certs = certs.replace(" Recertification", "")
                 certs = certs.replace(
                     'CPR - Level "C" /AED - valid 3 yr', "CPR-C/AED")
                 certs = certs.replace(
@@ -66,4 +68,11 @@ class webscraper:
             columnNames.insert(1, "Name")
 
             person = pd.DataFrame([rowData], columns=list(columnNames))
+            self.allStaff= self.allStaff.loc[~self.allStaff.index.duplicated(keep='first')]
             self.allStaff = self.allStaff.append(person, ignore_index=True)
+
+    def get_Cols(self):
+        return list(self.allStaff.columns.values)
+    
+    def get_Rows(self):
+        return list(self.allStaff.values.tolist())

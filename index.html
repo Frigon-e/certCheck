@@ -11,7 +11,7 @@
             $("#submit").click(function (e) {
                 e.preventDefault();
                 var numbers = document.getElementById("lifesavingNumbers").value;
-                $("#msgOutput").load("http://localhost:8080", {
+                $("#msgOutput").load("http://35.247.74.208:8080", {
                     ids: numbers
                 });
             });
