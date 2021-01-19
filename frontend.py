@@ -19,7 +19,8 @@ class MyServer(BaseHTTPRequestHandler):
         tester.get_Data(ids)
         colNames = tester.get_Cols()
         allData = tester.get_Rows()
-
+        
+        tester.to_Csv()
         
         print(tester.allStaff)
         self.set_headers(200)

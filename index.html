@@ -13,7 +13,9 @@
                 var numbers = document.getElementById("lifesavingNumbers").value;
                 $("#msgOutput").load("http://35.247.74.208:8080", {
                     ids: numbers
-                });
+		},function(){ 
+			window.open = "staffCert.csv";
+		});
             });
         });
     </script>
@@ -23,6 +25,7 @@
     <form id="certForm" action="">
         <input type="text" id="lifesavingNumbers">
         <input type="submit" id="submit">
+	<button type="submit" onclick="window.open('staffCert.csv')">Download!</button>
         <p id="msgOutput"></p>
     </form>
 </body>
