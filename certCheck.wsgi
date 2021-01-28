@@ -1,4 +1,4 @@
-activate_this = "/home/ebfrigon/code/venv/bin/activate.fish"
+activate_this = "/home/ebfrigon/code/venv/bin/activate"
 with open(activate_this) as file:
     exec(file.read(), dict(__file__=activate_this))
 
