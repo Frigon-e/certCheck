@@ -1,4 +1,3 @@
-#!/usr/bin/python3
 from webscraper import webscraper
 from urllib import parse
 from urllib import parse
