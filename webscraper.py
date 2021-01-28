@@ -3,14 +3,10 @@ import requests
 from bs4 import BeautifulSoup
 import re
 
+
 class webscraper:
     allStaff = pd.DataFrame()
-    allCerts = [
-            "National Lifeguard - Pool",
-            "National Lifeguard - Waterpark",
-            "CPR-C",
-            "Standard First Aid",
-            "AED"]
+
     def get_Data(self, ids):
         url = "https://www.lifesaving.bc.ca/_PartialEUmembers"
         header = {
@@ -36,14 +32,22 @@ class webscraper:
             name = ""
             usefulCerts = []
             usefulDates = []
-            
+            allCerts = [
+                "National Lifeguard - Pool",
+                "National Lifeguard - Waterpark",
+                "CPR-C",
+                "Standard First Aid",
+                "AED",
+                "Lifesaving Instructor"]
+
             payload = {"memberid": id, "current_only": "1"}
             s = requests.Session()
             s.headers = header
             r = s.post(url, data=payload)
 
             try:
-                soup = BeautifulSoup(r.content, "html.parser").find(id='DivIdToPrint')
+                soup = BeautifulSoup(r.content, "html.parser").find(
+                    id='DivIdToPrint')
                 name = soup.find(class_='ml-3')
                 name = name.text
                 name = name.replace("  ", " ")
@@ -52,7 +56,7 @@ class webscraper:
             except:
                 continue
 
-            #https://stackoverflow.com/questions/4664850/how-to-find-all-occurrences-of-a-substring
+            # https://stackoverflow.com/questions/4664850/how-to-find-all-occurrences-of-a-substring
             for certs in dirtyCerts:
                 certs = certs.text
                 certs = certs.strip()
@@ -71,17 +75,19 @@ class webscraper:
             cleanDates.pop(0)
 
             rowData = []
-            for certNames in self.allCerts: 
-                rowData.append(self.newest_Cert(cleanCerts, cleanDates, certNames))
-                
-            columnNames = self.allCerts
+            for certNames in allCerts:
+                rowData.append(self.newest_Cert(
+                    cleanCerts, cleanDates, certNames))
+
+            columnNames = allCerts
             rowData.insert(0, id)
             rowData.insert(1, name)
             columnNames.insert(0, "LSS#")
             columnNames.insert(1, "Name")
 
             person = pd.DataFrame([rowData], columns=list(columnNames))
-            self.allStaff= self.allStaff.loc[~self.allStaff.index.duplicated(keep='first')]
+            self.allStaff = self.allStaff.loc[~self.allStaff.index.duplicated(
+                keep='first')]
             self.allStaff = self.allStaff.append(person, ignore_index=True)
 
     def newest_Cert(self, certs, dates, certName):
@@ -96,10 +102,9 @@ class webscraper:
 
     def get_Cols(self):
         return list(self.allStaff.columns.values)
-    
+
     def get_Rows(self):
         return list(self.allStaff.values.tolist())
 
     def to_Csv(self):
         self.allStaff.to_csv("staffCert.csv", index=True)
-

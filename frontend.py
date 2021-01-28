@@ -1,12 +1,11 @@
-
+#!/usr/bin/python3
 import sys
+from webscraper import webscraper
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from urllib import parse
 
-from webscraper import webscraper
-
 hostName = "0.0.0.0"
-serverPort = 8080 
+serverPort = 8080
 
 
 class MyServer(BaseHTTPRequestHandler):
@@ -19,18 +18,18 @@ class MyServer(BaseHTTPRequestHandler):
         tester.get_Data(ids)
         colNames = tester.get_Cols()
         allData = tester.get_Rows()
-        
+
         tester.to_Csv()
-        
-        print(tester.allStaff)
+
         self.set_headers(200)
-        self.wfile.write(bytes("{}".format(self.get_output(colNames, allData)), "utf-8"))
-    
+        self.wfile.write(
+            bytes("{}".format(self.get_output(colNames, allData)), "utf-8"))
+
     def get_output(self, cols, rows):
         output = "<table>"
         output = output + "<tr>"
         for x in cols:
-            output = output + "<th>" + str(x) + "</th>" 
+            output = output + "<th>" + str(x) + "</th>"
         output = output + "</tr>"
         for x in rows:
             output = output + "<tr>"
@@ -62,13 +61,16 @@ class MyServer(BaseHTTPRequestHandler):
 
 
 if __name__ == "__main__":
+
     webServer = HTTPServer((hostName, serverPort), MyServer)
+
     print("Server started http://%s:%s" % (hostName, serverPort))
+
     try:
         webServer.serve_forever()
     except:
         webServer.server_close()
-        print("Server stopped.")
+        # print("Server stopped.")
         sys.exit()
     webServer.server_close()
     print("Server stopped.")

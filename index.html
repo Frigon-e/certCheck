@@ -8,25 +8,27 @@
     <script>
         var inputs = new Array();
         $(document).ready(function () {
+            $("#msgOutput").fadeToggle();
             $("#submit").click(function (e) {
                 e.preventDefault();
                 var numbers = document.getElementById("lifesavingNumbers").value;
+                $("#lifesavingNumbers").fadeOut();
+                $("#submit").fadeOut();
+                $("#msgOutput").fadeToggle();
                 $("#msgOutput").load("http://35.247.74.208:8080", {
                     ids: numbers
-		},function(){ 
-			window.open = "staffCert.csv";
-		});
+                });
             });
         });
     </script>
 </head>
 
 <body>
+    <p id="msgOutput"></p>
     <form id="certForm" action="">
         <input type="text" id="lifesavingNumbers">
         <input type="submit" id="submit">
 	<button type="submit" onclick="window.open('staffCert.csv')">Download!</button>
-        <p id="msgOutput"></p>
     </form>
 </body>
 
