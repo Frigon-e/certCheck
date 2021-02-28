@@ -113,6 +113,8 @@ class webscraper:
             else:
                 if columnNames[0] is 'Name' and columnNames[1] is 'Name':
                     columnNames.pop(0)
+                    rowData.pop(1)
+
                 print(rowData)
                 person = pd.DataFrame([rowData], columns=list(columnNames), index=[id])
                 print(person)
