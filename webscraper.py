@@ -109,13 +109,16 @@ class webscraper:
             columnNames.insert(1, "Name")
 
             person = pd.DataFrame([rowData], columns=list(columnNames))
+            person = person.loc[~person.index.duplicated(keep='first')]
+
             personDate = pd.DataFrame([rowDataTime], columns=list(columnNames))
+            personDate = personDate.loc[~personDate.index.duplicated(keep='first')]
 
             self.allStaff = self.allStaff.loc[~self.allStaff.index.duplicated(keep='first')]
-            self.allStaff = self.allStaff.append(person, ignore_index=False)
+            self.allStaff = self.allStaff.append(person, ignore_index=True)
 
             self.allStaff2 = self.allStaff2.loc[~self.allStaff2.index.duplicated(keep='first')]
-            self.allStaff2 = self.allStaff2.append(personDate, ignore_index=False)
+            self.allStaff2 = self.allStaff2.append(personDate, ignore_index=True)
 
         self.to_Csv()
 
