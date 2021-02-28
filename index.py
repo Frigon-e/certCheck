@@ -17,5 +17,15 @@ def do_POST():
     return output
 
 
+@app.route('/staffCert.txt')
+def download_to_browser():
+    itemOne = send_from_directory(directory="/home/ebfrigon/code/",
+                               filename="staffCert.txt",
+                               mimetype="txt/csv")
+    itemTwo = send_from_directory(directory="/home/ebfrigon/code/",
+                               filename="staffCert2.txt",
+                               mimetype="txt/csv")
+    return itemOne, itemTwo
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80)
