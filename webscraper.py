@@ -93,12 +93,11 @@ class webscraper:
                 dateToKeep = self.newest_Cert(cleanCerts, cleanDates, certNames)
                 if dateToKeep is not None:
                     dateToKeep = datetime.datetime.strptime(dateToKeep, '%d-%b-%Y')
-                    dateToKeep = dateToKeep.strftime('%d-%b-%Y')
                     expireDate = dateToKeep.replace(year=dateToKeep.year + allCertsVaild[certNames])
                     rowDataTime.append("{} months".format(self.monthsRemaining(expireDate, dateToKeep)))
                 else:
-                    rowDataTime.append(dateToKeep)
-                rowData.append(dateToKeep)
+                    rowDataTime.append(dateToKeep.strftime('%d-%b-%Y'))
+                rowData.append(dateToKeep.strftime('%d-%b-%Y'))
 
             columnNames = allCerts
             rowData.insert(0, id)
