@@ -106,13 +106,10 @@ class webscraper:
 
             rowData.insert(0, name)
             rowDataTime.insert(0, name)
+            columnNames.insert(0, "Name")
             if i == 0:
-                columnNamesForFrame = columnNames
-                columnNamesForFrame.insert(0, "Name")
-                self.allStaff = pd.DataFrame([rowData], columns=list(columnNamesForFrame), index=[id])
-                print(self.allStaff)
-                self.allStaff2 = pd.DataFrame([rowDataTime], columns=list(columnNamesForFrame), index=[id])
-                print(self.allStaff2)
+                self.allStaff = pd.DataFrame([rowData], columns=list(columnNames), index=[id])
+                self.allStaff2 = pd.DataFrame([rowDataTime], columns=list(columnNames), index=[id])
             else:
                 person = pd.DataFrame([rowData], columns=list(columnNames), index=[id])
                 print(person)
