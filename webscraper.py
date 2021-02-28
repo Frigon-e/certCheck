@@ -83,12 +83,7 @@ class webscraper:
             for dates in dirtyDates:
                 dates = dates.text
                 dates = dates.strip()
-                try:
-                    dates = datetime.datetime.strptime(dates, '%d-%m-%Y')
-                except ValueError:
-                    continue
-                finally:
-                    cleanDates.append(dates)
+                cleanDates.append(dates)
             cleanCerts.pop(0)
             cleanDates.pop(0)
 
@@ -97,6 +92,7 @@ class webscraper:
             rowDataTime = []
             for certNames in allCerts:
                 dateToKeep = self.newest_Cert(cleanCerts, cleanDates, certNames)
+                dateToKeep = datetime.datetime.strptime(dateToKeep, '%d-%m-%Y')
                 expireDate = dateToKeep.replace(year=dateToKeep.year + allCertsVaild[certNames])
                 rowDataTime.append("{} months".format(self.monthsRemaining(expireDate, dateToKeep)))
                 rowData.append(certToKeep)
