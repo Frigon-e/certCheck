@@ -108,14 +108,14 @@ class webscraper:
             columnNames.insert(1, "Name")
 
             if i == 0:
-                self.allStaff = pd.DataFrame([rowData], columns=list(columnNames), index=list(id))
+                self.allStaff = pd.DataFrame([rowData], columns=list(columnNames), index=[id])
                 print(self.allStaff)
-                self.allStaff2 = pd.DataFrame([rowDataTime], columns=list(columnNames), index=list(id))
+                self.allStaff2 = pd.DataFrame([rowDataTime], columns=list(columnNames), index=[id])
                 print(self.allStaff2)
             else:
-                person = pd.DataFrame([rowData], columns=list(columnNames), index=list(id))
+                person = pd.DataFrame([rowData], columns=list(columnNames), index=[id])
                 print(person)
-                personDate = pd.DataFrame([rowDataTime], columns=list(columnNames), index=list(id))
+                personDate = pd.DataFrame([rowDataTime], columns=list(columnNames), index=[id])
                 print(personDate)
 
                 self.allStaff = self.allStaff.loc[~self.allStaff.index.duplicated(keep='first')]
