@@ -120,6 +120,7 @@ class webscraper:
                 self.allStaff2 = self.allStaff2.loc[~self.allStaff2.index.duplicated(keep='first')]
                 self.allStaff2 = pd.concat([self.allStaff2.reset_index(drop=True), personDate.reset_index(drop=True)])
 
+
         self.to_Csv()
 
     def newest_Cert(self, certs, dates, certName):
