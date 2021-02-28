@@ -17,7 +17,7 @@ def do_POST():
     return output
 
 
-@app.route('/staffCert.txt')
+@app.route("/staffCertDownload")
 def download_to_browser():
     return send_from_directory(app.config["/home/ebfrigon/code/"],
                                filename="staffCert1.txt",
