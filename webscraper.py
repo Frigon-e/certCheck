@@ -111,6 +111,7 @@ class webscraper:
                 self.allStaff = pd.DataFrame([rowData], columns=list(columnNames), index=[id])
                 self.allStaff2 = pd.DataFrame([rowDataTime], columns=list(columnNames), index=[id])
             else:
+                print(columnNames)
                 person = pd.DataFrame([rowData], columns=list(columnNames), index=[id])
                 print(person)
                 personDate = pd.DataFrame([rowDataTime], columns=list(columnNames), index=[id])
