@@ -95,7 +95,7 @@ class webscraper:
                 dateToKeep = datetime.datetime.strptime(dateToKeep, '%d-%b-%Y')
                 expireDate = dateToKeep.replace(year=dateToKeep.year + allCertsVaild[certNames])
                 rowDataTime.append("{} months".format(self.monthsRemaining(expireDate, dateToKeep)))
-                rowData.append(certToKeep)
+                rowData.append(dateToKeep)
 
 
             columnNames = allCerts
