@@ -92,8 +92,9 @@ class webscraper:
                 if dateToKeep is not None:
                     dateToKeep = datetime.datetime.strptime(dateToKeep, '%d-%b-%Y')
                     expireDate = dateToKeep.replace(year=dateToKeep.year + allCertsVaild[certNames])
-                    print(expireDate)
-                    rowDataTime.append("{} months".format(self.monthsRemaining(expireDate, dateToKeep)))
+                    monthsRem = self.monthsRemaining(expireDate, dateToKeep)
+                    print("\ngotten date = {} | expire date = {} | rem = {}".format(dateToKeep, expireDate, monthsRem))
+                    rowDataTime.append("{} months".format(monthsRem))
                     dateToKeep = dateToKeep.strftime('%d-%b-%Y')
                 else:
                     rowDataTime.append(dateToKeep)
