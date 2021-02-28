@@ -101,10 +101,10 @@ class webscraper:
             columnNames = allCerts
             rowData.insert(0, id)
             rowData.insert(1, name)
-            rowDataTime.insert(0, id)
+            #rowDataTime.insert(0, id)
             rowDataTime.insert(1, name)
 
-            columnNames.insert(0, "LSS#")
+            #columnNames.insert(0, "LSS#")
             columnNames.insert(1, "Name")
 
             if i == 0:
