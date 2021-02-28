@@ -41,6 +41,8 @@ class webscraper:
             2
         ]
         allCertsVaild = dict(zip(allCerts, allCertsTime))
+        self.allStaff = pd.DataFrame()
+        self.allStaff2 = pd.DataFrame()
 
         namelist = []
         for i, id in enumerate(ids):
