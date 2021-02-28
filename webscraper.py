@@ -111,11 +111,17 @@ class webscraper:
             person = pd.DataFrame([rowData], columns=list(columnNames), index=['LSS#'])
             personDate = pd.DataFrame([rowDataTime], columns=list(columnNames), index=['LSS#'])
 
-            self.allStaff = self.allStaff.loc[~self.allStaff.index.duplicated(keep='first')]
-            self.allStaff = self.allStaff.append(person, ignore_index=True)
+            try:
+                self.allStaff = self.allStaff.loc[~self.allStaff.index.duplicated(keep='first')]
+                self.allStaff = self.allStaff.append(person, ignore_index=True)
+            except InvalidIndexError:
+                pass
 
-            self.allStaff2 = self.allStaff2.loc[~self.allStaff2.index.duplicated(keep='first')]
-            self.allStaff2 = self.allStaff2.append(personDate, ignore_index=True)
+            try:
+                self.allStaff2 = self.allStaff2.loc[~self.allStaff2.index.duplicated(keep='first')]
+                self.allStaff2 = self.allStaff2.append(personDate, ignore_index=True)
+            except InvalidIndexError:
+                pass
 
         self.to_Csv()
 
