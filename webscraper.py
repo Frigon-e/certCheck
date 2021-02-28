@@ -12,18 +12,18 @@ class webscraper:
     def get_Data(self, ids):
         url = "https://www.lifesaving.bc.ca/_PartialEUmembers"
         header = {
-            "accept": "*/*",
-            "accept-encoding": "gzip, deflate, br",
-            "accept-lauguage": "en-GB,en-US;q=0.9,en;q=0.8",
-            "content-length": "30",
-            "content-type": "application/x-www-form-urlencoded; charset=UTF-8",
-            "origin": "https://www.lifesaving.bc.ca",
-            "referer": "https://www.lifesaving.bc.ca/members",
-            "sec-fetch-dest": "empty",
-            "sec-fetch-mode": "cors",
-            "sec-fetch-site": "same-origin",
-            "sec-gpc": "1",
-            "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.101 Safari/537.36",
+            "accept"          : "*/*",
+            "accept-encoding" : "gzip, deflate, br",
+            "accept-lauguage" : "en-GB,en-US;q=0.9,en;q=0.8",
+            "content-length"  : "30",
+            "content-type"    : "application/x-www-form-urlencoded; charset=UTF-8",
+            "origin"          : "https://www.lifesaving.bc.ca",
+            "referer"         : "https://www.lifesaving.bc.ca/members",
+            "sec-fetch-dest"  : "empty",
+            "sec-fetch-mode"  : "cors",
+            "sec-fetch-site"  : "same-origin",
+            "sec-gpc"         : "1",
+            "user-agent"      : "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.101 Safari/537.36",
             "x-requested-with": "XMLHttpRequest"
         }
         allCerts = [
@@ -48,7 +48,6 @@ class webscraper:
         for id in ids:
             cleanDates = []
             cleanCerts = []
-
 
             payload = {"memberid": id, "current_only": "1"}
             s = requests.Session()
@@ -100,7 +99,6 @@ class webscraper:
                     rowDataTime.append(dateToKeep)
                 rowData.append(dateToKeep)
 
-
             columnNames = allCerts
             rowData.insert(0, id)
             rowData.insert(1, name)
@@ -114,11 +112,10 @@ class webscraper:
             personDate = pd.DataFrame([rowDataTime], columns=list(columnNames))
 
             self.allStaff = self.allStaff.loc[~self.allStaff.index.duplicated(keep='first')]
-            self.allStaff = self.allStaff.append(person, ignore_index=True)
+            self.allStaff = self.allStaff.append(person, ignore_index=False)
 
             self.allStaff2 = self.allStaff2.loc[~self.allStaff2.index.duplicated(keep='first')]
-            self.allStaff2 = self.allStaff2.append(personDate, ignore_index=True)
-
+            self.allStaff2 = self.allStaff2.append(personDate, ignore_index=False)
 
         self.to_Csv()
 
