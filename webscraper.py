@@ -34,14 +34,14 @@ class webscraper:
             "AED",
             "Lifesaving Instructor"]
 
-        allCertsTime = {
+        allCertsTime = [
             2,
             2,
             3,
             3,
             3,
             2
-        }
+        ]
         allCertsVaild = dict(zip(allCerts, allCertsTime))
 
         namelist = []
