@@ -100,17 +100,18 @@ class webscraper:
 
             columnNames = allCerts
             #rowData.insert(0, id)
-            rowData.insert(0, name)
             #rowDataTime.insert(0, id)
-            rowDataTime.insert(0, name)
 
             #columnNames.insert(0, "LSS#")
-            columnNames.insert(0, "Name")
 
             if i == 0:
-                self.allStaff = pd.DataFrame([rowData], columns=list(columnNames), index=[id])
+                columnNamesForFrame = columnNames
+                columnNamesForFrame.insert(0, "Name")
+                rowData.insert(0, name)
+                rowDataTime.insert(0, name)
+                self.allStaff = pd.DataFrame([rowData], columns=list(columnNamesForFrame), index=[id])
                 print(self.allStaff)
-                self.allStaff2 = pd.DataFrame([rowDataTime], columns=list(columnNames), index=[id])
+                self.allStaff2 = pd.DataFrame([rowDataTime], columns=list(columnNamesForFrame), index=[id])
                 print(self.allStaff2)
             else:
                 person = pd.DataFrame([rowData], columns=list(columnNames), index=[id])
