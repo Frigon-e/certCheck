@@ -2,10 +2,12 @@ import pandas as pd
 import requests
 from bs4 import BeautifulSoup
 import re
+import datetime
 
 
 class webscraper:
     allStaff = pd.DataFrame()
+    allStaff2 = pd.DataFrame()
 
     def get_Data(self, ids):
         url = "https://www.lifesaving.bc.ca/_PartialEUmembers"
@@ -24,25 +26,36 @@ class webscraper:
             "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.101 Safari/537.36",
             "x-requested-with": "XMLHttpRequest"
         }
+        allCerts = [
+            "National Lifeguard - Pool",
+            "National Lifeguard - Waterpark",
+            "CPR-C",
+            "Standard First Aid",
+            "AED",
+            "Lifesaving Instructor"]
+
+        allCertsTime = {
+            2,
+            2,
+            3,
+            3,
+            3,
+            2
+        }
+        allCertsVaild = dict(zip(allCerts, allCertsTime))
+
         namelist = []
         for id in ids:
             cleanDates = []
             cleanCerts = []
-            dirtyCerts = []
-            name = ""
-            allCerts = [
-                "National Lifeguard - Pool",
-                "National Lifeguard - Waterpark",
-                "CPR-C",
-                "Standard First Aid",
-                "AED",
-                "Lifesaving Instructor"]
+
 
             payload = {"memberid": id, "current_only": "1"}
             s = requests.Session()
             s.headers = header
             r = s.post(url, data=payload)
 
+            # gets the certs and names in ml-3 div
             try:
                 soup = BeautifulSoup(r.content, "html.parser").find(
                     id='DivIdToPrint')
@@ -55,6 +68,7 @@ class webscraper:
                 continue
 
             # https://stackoverflow.com/questions/4664850/how-to-find-all-occurrences-of-a-substring
+            # Replaces certs with cleaner names
             for certs in dirtyCerts:
                 certs = certs.text
                 certs = certs.strip()
@@ -64,18 +78,24 @@ class webscraper:
                     "Standard First Aid (OFA 1 Equivalent)", "Standard First Aid")
                 cleanCerts.append(certs)
 
+            # Gets all the dates from the col-md-3 div
             dirtyDates = soup.find_all(class_="col-md-3")
             for dates in dirtyDates:
                 dates = dates.text
                 dates = dates.strip()
+                dates = datetime.date.strptime(dates, '%d-%m-%Y')
                 cleanDates.append(dates)
             cleanCerts.pop(0)
             cleanDates.pop(0)
 
+            # Checks and returns newest certs
             rowData = []
+            rowDataTime = []
             for certNames in allCerts:
-                rowData.append(self.newest_Cert(
-                    cleanCerts, cleanDates, certNames))
+                dateToKeep = self.newest_Cert(cleanCerts, cleanDates, certNames)
+                expireDate = dateToKeep.replace(year=dateToKeep.year + allCertsVaild[certNames])
+                rowDataTime.append("{} months".format(self.monthsRemaining(expireDate, dateToKeep)))
+                rowData.append(certToKeep)
 
             columnNames = allCerts
             rowData.insert(0, id)
@@ -90,7 +110,9 @@ class webscraper:
         self.to_Csv()
 
     def newest_Cert(self, certs, dates, certName):
+        # Makes list of where dates of same cert are
         indices = [i for i, x in enumerate(certs) if certName in x]
+        # returns min date of indices
         if len(indices) > 1:
             newDates = [dates[x] for x in indices]
             return min(newDates)
@@ -98,6 +120,9 @@ class webscraper:
             return dates[indices[0]]
         else:
             return None
+
+    def monthsRemaining(self, expire, current):
+        return (expire - current) * 12 + expire.month - current.month
 
     def get_Cols(self):
         return list(self.allStaff.columns.values)
