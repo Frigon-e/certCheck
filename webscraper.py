@@ -97,6 +97,7 @@ class webscraper:
                 rowDataTime.append("{} months".format(self.monthsRemaining(expireDate, dateToKeep)))
                 rowData.append(certToKeep)
 
+
             columnNames = allCerts
             rowData.insert(0, id)
             rowData.insert(1, name)
