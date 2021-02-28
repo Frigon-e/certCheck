@@ -92,6 +92,7 @@ class webscraper:
                 if dateToKeep is not None:
                     dateToKeep = datetime.datetime.strptime(dateToKeep, '%d-%b-%Y')
                     expireDate = dateToKeep.replace(year=dateToKeep.year + allCertsVaild[certNames])
+                    print(expireDate)
                     rowDataTime.append("{} months".format(self.monthsRemaining(expireDate, dateToKeep)))
                     dateToKeep = dateToKeep.strftime('%d-%b-%Y')
                 else:
@@ -111,16 +112,13 @@ class webscraper:
                 self.allStaff = pd.DataFrame([rowData], columns=list(columnNames), index=[id])
                 self.allStaff2 = pd.DataFrame([rowDataTime], columns=list(columnNames), index=[id])
             else:
-                if columnNames[0] is 'Name' and columnNames[1] is 'Name':
+                if columnNames[0] == 'Name' and columnNames[1] == 'Name':
                     columnNames.pop(0)
                     rowData.pop(1)
                     rowDataTime.pop(1)
 
-                print(rowData)
                 person = pd.DataFrame([rowData], columns=list(columnNames), index=[id])
-                print(person)
                 personDate = pd.DataFrame([rowDataTime], columns=list(columnNames), index=[id])
-                print(personDate)
 
                 self.allStaff = self.allStaff.loc[~self.allStaff.index.duplicated(keep='first')]
                 self.allStaff = self.allStaff.append(person)
