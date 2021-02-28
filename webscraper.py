@@ -102,14 +102,13 @@ class webscraper:
             columnNames = allCerts
             rowData.insert(0, id)
             rowData.insert(1, name)
-            rowDataTime.insert(0, id)
+            rowDataTime.insert(0, int(id))
             rowDataTime.insert(1, name)
 
             columnNames.insert(0, "LSS#")
             columnNames.insert(1, "Name")
 
             person = pd.DataFrame([rowData], columns=list(columnNames), index=['LSS#'])
-
             personDate = pd.DataFrame([rowDataTime], columns=list(columnNames), index=['LSS#'])
 
             self.allStaff = self.allStaff.loc[~self.allStaff.index.duplicated(keep='first')]
