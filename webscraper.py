@@ -115,6 +115,7 @@ class webscraper:
             self.allStaff2 = self.allStaff2.loc[~self.allStaff.index.duplicated(keep='first')]
             self.allStaff2 = self.allStaff2.append(personDate, ignore_index=True)
 
+
         self.to_Csv()
 
     def newest_Cert(self, certs, dates, certName):
