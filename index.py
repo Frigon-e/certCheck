@@ -16,10 +16,10 @@ def do_POST():
     return output
 
 
-@app.route('/staffCert.txt')
+@app.route('/staffCert2.txt')
 def download_to_browser():
     return send_from_directory(directory="/home/ebfrigon/code/",
-                               filename="staffCert.txt",
+                               filename="staffCert2.txt",
                                mimetype="txt/csv")
 
 
