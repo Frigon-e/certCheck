@@ -19,7 +19,7 @@ def do_POST():
 
 @app.route("/staffCertDownload")
 def download_to_browser():
-    return send_from_directory(app.config["/home/ebfrigon/code/"],
+    return send_from_directory(app.config["./"],
                                filename="staffCert1.txt",
                                mimetype="txt/csv",
                                cache_timeout=0)
