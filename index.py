@@ -1,5 +1,6 @@
 from flask import Flask, request, render_template, send_from_directory
 from frontend import Server
+
 app = Flask(__name__)
 
 
@@ -14,6 +15,13 @@ def do_POST():
     webServer = Server(text)
     output = webServer.do_Thing()
     return output
+
+
+@app.route('/staffCert.txt')
+def download_to_browser():
+    return send_from_directory(directory="/home/ebfrigon/code/",
+                               filename="staffCert1.txt",
+                               mimetype="txt/csv")
 
 
 @app.route('/staffCert2.txt')
