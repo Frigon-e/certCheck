@@ -24,19 +24,14 @@ class Server:
         self.allData = data
 
     def do_Thing(self):
-        #ids = self.allData.split()
-        ids = [
-            "FRE96F",
-            "BEG92L",
-            "CHN98W"
-        ]
+        ids = self.allData.split()
+
         tester = webscraper()
         tester.get_Data(ids)
-        #colNames = tester.get_Cols()
-        #allData = tester.get_Rows()
+        colNames = tester.get_Cols()
+        allData = tester.get_Rows()
 
-        #return("{}".format(get_output(colNames, allData)))
-        print(tester.allStaff())
+        return("{}".format(get_output(colNames, allData)))
 
  #   def getRequestData(self):
  #       body = self.rfile.read(int(self.headers.get('Content-Length')))

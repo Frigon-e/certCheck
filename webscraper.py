@@ -147,3 +147,10 @@ class webscraper:
         self.allStaff.to_csv("/home/ebfrigon/code/staffCert.txt", index=True)
         self.allStaff2.to_csv("/home/ebfrigon/code/staffCert2.txt", index=True)
 
+ids = [
+    "FRE96F",
+    "BEG92L",
+    "CHN98W"
+]
+tester = webscraper()
+tester.get_Data(ids)
