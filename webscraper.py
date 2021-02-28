@@ -102,7 +102,7 @@ class webscraper:
             columnNames = allCerts
             rowData.insert(0, id)
             rowData.insert(1, name)
-            rowDataTime.insert(0, int(id))
+            rowDataTime.insert(0, id)
             rowDataTime.insert(1, name)
 
             columnNames.insert(0, "LSS#")
@@ -113,11 +113,9 @@ class webscraper:
 
             self.allStaff = self.allStaff.loc[~self.allStaff.index.duplicated(keep='first')]
             self.allStaff = self.allStaff.append(person, ignore_index=True)
-            self.allStaff = self.allStaff.set_index('LSS#')
 
             self.allStaff2 = self.allStaff2.loc[~self.allStaff2.index.duplicated(keep='first')]
             self.allStaff2 = self.allStaff2.append(personDate, ignore_index=True)
-            self.allStaff2 = self.allStaff2.set_index('LSS#')
 
         self.to_Csv()
 
