@@ -109,7 +109,7 @@ class webscraper:
             columnNames.insert(0, "LSS#")
             columnNames.insert(1, "Name")
 
-            if i == 0:
+            if i == 1:
                 self.allStaff = pd.DataFrame([rowData], columns=list(columnNames), index=['LSS#'])
                 self.allStaff2 = pd.DataFrame([rowDataTime], columns=list(columnNames), index=['LSS#'])
             else:
