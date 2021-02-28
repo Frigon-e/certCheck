@@ -6,8 +6,6 @@ import datetime
 
 
 class webscraper:
-    allStaff = pd.DataFrame()
-    allStaff2 = pd.DataFrame()
 
     def get_Data(self, ids):
         url = "https://www.lifesaving.bc.ca/_PartialEUmembers"
@@ -45,7 +43,7 @@ class webscraper:
         allCertsVaild = dict(zip(allCerts, allCertsTime))
 
         namelist = []
-        for id in ids:
+        for i, id in enumerate(ids):
             cleanDates = []
             cleanCerts = []
 
@@ -109,14 +107,18 @@ class webscraper:
             columnNames.insert(0, "LSS#")
             columnNames.insert(1, "Name")
 
-            person = pd.DataFrame([rowData], columns=list(columnNames), index=['LSS#'])
-            personDate = pd.DataFrame([rowDataTime], columns=list(columnNames), index=['LSS#'])
+            if i == 0:
+                self.allStaff = pd.DataFrame([rowData], columns=list(columnNames), index=['LSS#'])
+                self.allStaff2 = pd.DataFrame([rowDataTime], columns=list(columnNames), index=['LSS#'])
+            else:
+                person = pd.DataFrame([rowData], columns=list(columnNames), index=['LSS#'])
+                personDate = pd.DataFrame([rowDataTime], columns=list(columnNames), index=['LSS#'])
 
-            self.allStaff = self.allStaff.loc[~self.allStaff.index.duplicated(keep='first')]
-            self.allStaff = pd.concat([allStaff.reset_index(drop=True), person.reset_index(drop=True)])
+                self.allStaff = self.allStaff.loc[~self.allStaff.index.duplicated(keep='first')]
+                self.allStaff = pd.concat([allStaff.reset_index(drop=True), person.reset_index(drop=True)])
 
-            self.allStaff2 = self.allStaff2.loc[~self.allStaff2.index.duplicated(keep='first')]
-            self.allStaff2 = pd.concat([allStaff2.reset_index(drop=True), personDate.reset_index(drop=True)])
+                self.allStaff2 = self.allStaff2.loc[~self.allStaff2.index.duplicated(keep='first')]
+                self.allStaff2 = pd.concat([allStaff2.reset_index(drop=True), personDate.reset_index(drop=True)])
 
         self.to_Csv()
 
