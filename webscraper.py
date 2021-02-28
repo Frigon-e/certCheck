@@ -114,13 +114,13 @@ class webscraper:
             try:
                 self.allStaff = self.allStaff.loc[~self.allStaff.index.duplicated(keep='first')]
                 self.allStaff = self.allStaff.append(person, ignore_index=True)
-            except InvalidIndexError:
+            except:
                 pass
 
             try:
                 self.allStaff2 = self.allStaff2.loc[~self.allStaff2.index.duplicated(keep='first')]
                 self.allStaff2 = self.allStaff2.append(personDate, ignore_index=True)
-            except InvalidIndexError:
+            except:
                 pass
 
         self.to_Csv()
