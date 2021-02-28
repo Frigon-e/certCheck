@@ -132,7 +132,7 @@ class webscraper:
             return None
 
     def monthsRemaining(self, expire, current):
-        return (expire - current) * 12 + expire.month - current.month
+        return (expire.year - current.year) * 12 + expire.month - current.month
 
     def get_Cols(self):
         return list(self.allStaff.columns.values)
