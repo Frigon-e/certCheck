@@ -102,10 +102,10 @@ class webscraper:
             rowData.insert(0, id)
             rowData.insert(1, name)
             #rowDataTime.insert(0, id)
-            rowDataTime.insert(1, name)
+            rowDataTime.insert(0, name)
 
             #columnNames.insert(0, "LSS#")
-            columnNames.insert(1, "Name")
+            columnNames.insert(0, "Name")
 
             if i == 0:
                 self.allStaff = pd.DataFrame([rowData], columns=list(columnNames), index=[id])
