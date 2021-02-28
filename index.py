@@ -18,13 +18,13 @@ def do_POST():
 
 
 @app.route("/staffCertToExp.txt")
-def download_to_browser():
+def download_to_browser_One():
     return send_from_directory(directory="/home/ebfrigon/code/",
                                filename="staffCert2.txt",
                                mimetype="txt/csv",
                                cache_timeout=0)
 @app.route("/staffCertMonth.txt")
-def download_to_browser():
+def download_to_browser_Two():
     return send_from_directory(directory="/home/ebfrigon/code/",
                                filename="staffCert.txt",
                                mimetype="txt/csv",
