@@ -19,13 +19,12 @@ def do_POST():
 
 @app.route('/staffCert.txt')
 def download_to_browser():
-    itemOne = send_from_directory(directory="/home/ebfrigon/code/",
-                               filename="staffCert.txt",
-                               mimetype="txt/csv")
-    itemTwo = send_from_directory(directory="/home/ebfrigon/code/",
-                               filename="staffCert2.txt",
-                               mimetype="txt/csv")
-    return itemOne, itemTwo
+    itemOne = send_from_directory(app.config["/home/ebfrigon/code/"],
+                                  filename="staffCert1.txt",
+                                  mimetype="txt/csv",
+                                  cache_timeout=0)
+    return itemOne
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80)
