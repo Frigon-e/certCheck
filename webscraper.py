@@ -97,17 +97,26 @@ class webscraper:
                 rowDataTime.append("{} months".format(self.monthsRemaining(expireDate, dateToKeep)))
                 rowData.append(certToKeep)
 
-            print(rowDataTime)
             columnNames = allCerts
             rowData.insert(0, id)
             rowData.insert(1, name)
+            rowDataTime.insert(0, id)
+            rowDataTime.insert(1, name)
+
             columnNames.insert(0, "LSS#")
             columnNames.insert(1, "Name")
 
             person = pd.DataFrame([rowData], columns=list(columnNames))
+            personDate = pd.DataFrame([rowDataTime], columns=list(columnNames))
+
             self.allStaff = self.allStaff.loc[~self.allStaff.index.duplicated(
                 keep='first')]
             self.allStaff = self.allStaff.append(person, ignore_index=True)
+
+            self.allStaff2 = self.allStaff.loc[~self.allStaff.index.duplicated(
+                keep='first')]
+            self.allStaff2 = self.allStaff.append(person, ignore_index=True)
+
         self.to_Csv()
 
     def newest_Cert(self, certs, dates, certName):
@@ -133,3 +142,4 @@ class webscraper:
 
     def to_Csv(self):
         self.allStaff.to_csv("/home/ebfrigon/code/staffCert.txt", index=True)
+        self.allStaff2.to_csv("/home/ebfrigon/code/staffCert2.txt", index=True)
