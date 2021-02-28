@@ -41,8 +41,6 @@ class webscraper:
             2
         ]
         allCertsVaild = dict(zip(allCerts, allCertsTime))
-        self.allStaff = pd.DataFrame()
-        self.allStaff2 = pd.DataFrame()
 
         namelist = []
         for i, id in enumerate(ids):
@@ -109,7 +107,7 @@ class webscraper:
             columnNames.insert(0, "LSS#")
             columnNames.insert(1, "Name")
 
-            if i == 1:
+            if i == 0:
                 self.allStaff = pd.DataFrame([rowData], columns=list(columnNames), index=['LSS#'])
                 self.allStaff2 = pd.DataFrame([rowDataTime], columns=list(columnNames), index=['LSS#'])
             else:
@@ -117,10 +115,10 @@ class webscraper:
                 personDate = pd.DataFrame([rowDataTime], columns=list(columnNames), index=['LSS#'])
 
                 self.allStaff = self.allStaff.loc[~self.allStaff.index.duplicated(keep='first')]
-                self.allStaff = pd.concat([allStaff.reset_index(drop=True), person.reset_index(drop=True)])
+                self.allStaff = pd.concat([self.allStaff.reset_index(drop=True), person.reset_index(drop=True)])
 
                 self.allStaff2 = self.allStaff2.loc[~self.allStaff2.index.duplicated(keep='first')]
-                self.allStaff2 = pd.concat([allStaff2.reset_index(drop=True), personDate.reset_index(drop=True)])
+                self.allStaff2 = pd.concat([self.allStaff2.reset_index(drop=True), personDate.reset_index(drop=True)])
 
         self.to_Csv()
 
