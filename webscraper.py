@@ -83,8 +83,12 @@ class webscraper:
             for dates in dirtyDates:
                 dates = dates.text
                 dates = dates.strip()
-                dates = datetime.datetime.strptime(dates, '%d-%m-%Y')
-                cleanDates.append(dates)
+                try:
+                    dates = datetime.datetime.strptime(dates, '%d-%m-%Y')
+                except ValueError:
+                    continue
+                finally:
+                    cleanDates.append(dates)
             cleanCerts.pop(0)
             cleanDates.pop(0)
 
