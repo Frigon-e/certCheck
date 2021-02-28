@@ -6,26 +6,8 @@ import datetime
 
 
 class webscraper:
-    allStaff = pd.DataFrame(columns=[
-        "LSS#",
-        "Name",
-        "National Lifeguard - Pool",
-        "National Lifeguard - Waterpark",
-        "CPR-C",
-        "Standard First Aid",
-        "AED",
-        "Lifesaving Instructor"
-    ], index="LSS#")
-    allStaff2 = pd.DataFrame(columns=[
-        "LSS#",
-        "Name",
-        "National Lifeguard - Pool",
-        "National Lifeguard - Waterpark",
-        "CPR-C",
-        "Standard First Aid",
-        "AED",
-        "Lifesaving Instructor"
-    ], index="LSS#")
+    allStaff = pd.DataFrame()
+    allStaff2 = pd.DataFrame()
 
     def get_Data(self, ids):
         url = "https://www.lifesaving.bc.ca/_PartialEUmembers"
@@ -126,16 +108,16 @@ class webscraper:
             columnNames.insert(0, "LSS#")
             columnNames.insert(1, "Name")
 
-            # person = pd.DataFrame([rowData], columns=list(columnNames))
+            person = pd.DataFrame([rowData], columns=list(columnNames), index=['LSS#'])
 
-            # personDate = pd.DataFrame([rowDataTime], columns=list(columnNames))
+            personDate = pd.DataFrame([rowDataTime], columns=list(columnNames), index=['LSS#'])
 
             self.allStaff = self.allStaff.loc[~self.allStaff.index.duplicated(keep='first')]
-            self.allStaff = self.allStaff.append(rowData, ignore_index=True)
+            self.allStaff = self.allStaff.append(person, ignore_index=True)
             self.allStaff = self.allStaff.set_index('LSS#')
 
             self.allStaff2 = self.allStaff2.loc[~self.allStaff2.index.duplicated(keep='first')]
-            self.allStaff2 = self.allStaff2.append(rowDataTime, ignore_index=True)
+            self.allStaff2 = self.allStaff2.append(personDate, ignore_index=True)
             self.allStaff2 = self.allStaff2.set_index('LSS#')
 
         self.to_Csv()
