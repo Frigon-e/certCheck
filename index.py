@@ -19,7 +19,7 @@ def do_POST():
 
 @app.route("/staffCertDownload")
 def download_to_browser():
-    return send_from_directory(app.config["./"],
+    return send_from_directory(app.config["default"],
                                filename="staffCert1.txt",
                                mimetype="txt/csv",
                                cache_timeout=0)
