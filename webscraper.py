@@ -99,8 +99,8 @@ class webscraper:
                 rowData.append(dateToKeep)
 
             columnNames = allCerts
-            rowData.insert(0, id)
-            rowData.insert(1, name)
+            #rowData.insert(0, id)
+            rowData.insert(0, name)
             #rowDataTime.insert(0, id)
             rowDataTime.insert(0, name)
 
