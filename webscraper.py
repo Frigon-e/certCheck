@@ -146,3 +146,4 @@ class webscraper:
     def to_Csv(self):
         self.allStaff.to_csv("/home/ebfrigon/code/staffCert.txt", index=True)
         self.allStaff2.to_csv("/home/ebfrigon/code/staffCert2.txt", index=True)
+
