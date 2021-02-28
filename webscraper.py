@@ -111,14 +111,14 @@ class webscraper:
                 self.allStaff = pd.DataFrame([rowData], columns=list(columnNames), index=['LSS#'])
                 self.allStaff2 = pd.DataFrame([rowDataTime], columns=list(columnNames), index=['LSS#'])
             else:
-                person = pd.DataFrame([rowData], columns=list(columnNames), index=['LSS#'])
-                personDate = pd.DataFrame([rowDataTime], columns=list(columnNames), index=['LSS#'])
+                person = pd.DataFrame([rowData], columns=list(columnNames))
+                personDate = pd.DataFrame([rowDataTime], columns=list(columnNames))
 
                 self.allStaff = self.allStaff.loc[~self.allStaff.index.duplicated(keep='first')]
-                self.allStaff = pd.concat([self.allStaff.reset_index(drop=True), person.reset_index(drop=True)])
+                self.allStaff = pd.concat([self.allStaff, person])
 
                 self.allStaff2 = self.allStaff2.loc[~self.allStaff2.index.duplicated(keep='first')]
-                self.allStaff2 = pd.concat([self.allStaff2.reset_index(drop=True), personDate.reset_index(drop=True)])
+                self.allStaff2 = pd.concat([self.allStaff2, personDate])
 
 
         self.to_Csv()
