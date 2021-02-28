@@ -7,30 +7,30 @@
     <title>Cert Checker</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script>
-        var inputs = new Array();
-        $(document).ready(function () {
+       var inputs = new Array();
+       $(document).ready(function () {
             $("#msgOutput").fadeToggle();
-            $("#submit").click(function (e) {
+                $("#submit").click(function (e) {
                 e.preventDefault();
                 var numbers = document.getElementById("lifesavingNumbers").value;
                 $("#lifesavingNumbers").fadeOut();
                 $("#submit").fadeOut();
                 $("#msgOutput").fadeToggle();
-                $("#msgOutput").load("http://ethanfrigon.ca/frontend.py", {
+                $("#msgOutput").load("http://ethanfrigon.ca/", {
                     ids: numbers
                 });
-            });
-        });
+              });
+          });
     </script>
 </head>
 
 <body>
     <p id="msgOutput"></p>
-    <form id="certForm" action="">
-        <input type="text" id="lifesavingNumbers">
-        <input type="submit" id="submit">
-	<button type="submit" onclick="window.open('staffCert.csv')">Download!</button>
+    <form id="certForm" method="POST">
+        <input type="text" name="lifesavingNumbers">
+        <input type="submit" name="submit">
     </form>
+    <a href="/staffCert.txt"><button>Download!</button></a>
 </body>
 
 </html>

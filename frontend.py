@@ -20,34 +20,27 @@ def get_output(cols, rows):
 
 
 class Server:
-    def do_POST(self):
-        data = self.getRequestData()
-        allData = data['ids']
+    def __init__(self, data):
+        self.allData = data
 
-        ids = allData.split()
+    def do_Thing(self):
+        ids = self.allData.split()
         tester = webscraper()
         tester.get_Data(ids)
         colNames = tester.get_Cols()
         allData = tester.get_Rows()
 
-        tester.to_Csv()
+        return("{}".format(get_output(colNames, allData)))
 
-        self.wfile.write(
-            bytes("{}".format(get_output(colNames, allData)), "utf-8"))
+ #   def getRequestData(self):
+ #       body = self.rfile.read(int(self.headers.get('Content-Length')))
+ #       body = body.decode("utf-8")
+ #       return dict(parse.parse_qsl(body))
 
-    def getRequestData(self):
-        body = self.rfile.read(int(self.headers.get('Content-Length')))
-        body = body.decode("utf-8")
-        return dict(parse.parse_qsl(body))
-
-    def getParams(self):
-        output = {}
-        queryList = parse.parse_qs(parse.urlsplit(self.path).query)
-        for key in queryList:
-            if len(queryList[key]) == 1:
-                output[key] = queryList[key][0]
-        return output
-
-
-x = Server()
-x.do_POST()
+ #   def getParams(self):
+ #       output = {}
+ #       queryList = parse.parse_qs(parse.urlsplit(self.path).query)
+ #       for key in queryList:
+ #           if len(queryList[key]) == 1:
+ #               output[key] = queryList[key][0]
+ #       return output

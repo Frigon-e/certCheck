@@ -30,8 +30,6 @@ class webscraper:
             cleanCerts = []
             dirtyCerts = []
             name = ""
-            usefulCerts = []
-            usefulDates = []
             allCerts = [
                 "National Lifeguard - Pool",
                 "National Lifeguard - Waterpark",
@@ -89,6 +87,7 @@ class webscraper:
             self.allStaff = self.allStaff.loc[~self.allStaff.index.duplicated(
                 keep='first')]
             self.allStaff = self.allStaff.append(person, ignore_index=True)
+        self.to_Csv()
 
     def newest_Cert(self, certs, dates, certName):
         indices = [i for i, x in enumerate(certs) if certName in x]
@@ -107,4 +106,4 @@ class webscraper:
         return list(self.allStaff.values.tolist())
 
     def to_Csv(self):
-        self.allStaff.to_csv("staffCert.csv", index=True)
+        self.allStaff.to_csv("/home/ebfrigon/code/staffCert.txt", index=True)
