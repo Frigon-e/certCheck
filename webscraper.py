@@ -109,10 +109,8 @@ class webscraper:
             columnNames.insert(1, "Name")
 
             person = pd.DataFrame([rowData], columns=list(columnNames))
-            person = person.loc[~person.index.duplicated(keep='first')]
 
             personDate = pd.DataFrame([rowDataTime], columns=list(columnNames))
-            personDate = personDate.loc[~personDate.index.duplicated(keep='first')]
 
             self.allStaff = self.allStaff.loc[~self.allStaff.index.duplicated(keep='first')]
             self.allStaff = self.allStaff.reset_index(inplace=True, drop=True)
